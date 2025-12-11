@@ -1,6 +1,9 @@
 # Ignore data
 data/
 
+# Ignore other files
+Guidance/
+
 # Ignore Mac system files
 .DS_Store
 
@@ -16,3 +19,7 @@ paper/*.out
 paper/*.synctex.gz
 paper/*.fdb_latexmk
 paper/*.fls
+paper/*.bbl
+paper/*.pdf
+paper/*.bib
+paper/figures/
