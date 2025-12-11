@@ -1,0 +1,122 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Page Layout ---
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+% \doublespacing
+
+% --- Paragraph Formatting ---
+\usepackage{parskip}  % no paragraph indentation, adds vertical space
+\setlength{\parindent}{15pt}  % resets indentation 
+\usepackage{indentfirst}  % indent first paragraph of sections (optional)
+
+% --- Font and Typography ---
+\usepackage{newpxtext,newpxmath}
+% \usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% --- Section Title Formatting ---
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{1em}{}
+
+% --- Math ---
+\usepackage{amsmath, amssymb, amsthm}
+
+% --- Figures and Tables ---
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{arydshln}
+
+% --- References ---
+% \usepackage{natbib}
+% \usepackage[
+%     backend=biber,
+%     style=authoryear,
+%     natbib=true
+% ]{biblatex}
+% \addbibresource{bibliography.bib}
+\usepackage{natbib}
+\bibliographystyle{apalike}
+
+% --- Hyperlinks ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+% --- Theorems ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+
+ % --- Header/Footer (optional for working papers) ---
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhead[L]{Working Paper}
+% \fancyhead[R]{\thepage}
+
+% --- Rotating tables ---
+\usepackage{rotating} % Needed for sidewaystable
+
+\title{EC421 Independent Research proposal \\ 
+    Is Peru's FX Intervention Optimal? A Calibrated Framework}
+\author{Gonzalo Bueno Bustíos}
+\date{December 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Research question}
+
+n recent years, due to significant movements of capital around the world, Central Banks have been keen on participating in the FX market. This has evoked questions regarding what the optimal FX policy to implement is. Does this policy maximize welfare? What are the optimal policy tools to implement it? Through what channels do these tools operate?
+
+This proposal is based on analyzing the particular case of the Peruvian Central Bank. This case is particular due to the practice of participating with FX interventions to reduce exchange rate volatility, but also through market swaps that keep international reserves untouched. This has been a success case. Compared to the rest of South America, Peru has had one of the lowest depreciations as well as less volatility in recent years.
+
+\begin{figure}[H]
+    \centering
+    \caption{FX Trends over time}
+    \includegraphics[width=\linewidth]{Graphics/fx_plot.png }     \label{fig:fx_plot}
+ \end{figure}
+
+From 2002 to 2025 (implementation of Inflation Targeting in Peru), the volatility of the USD/Sol Peruano (Peruvian currency) exchange rate has been 1.3\footnote{This has been measured as the standard deviation of the log variation of the interest rate normalized to 100}, which is 1.7 and 2.41 times the average volatility of developed countries (excluding China) and emerging economies respectively.
+
+This has been a particular challenge, as the Peruvian economy is a partially dollarized one (by September of 2025, 25.5 percent of credit issued to the private sector is in USD). This means that there exists a balance sheet effect of exchange rate volatility over firms, which creates an incentive for the Central Bank to intervene in FX markets to reduce volatility and therefore eliminate a potential channel from where risk can impact the real economy or create a stronger feedback effect over USD depreciation.
+
+\begin{figure}[H]
+    \centering
+    \caption{Dollarization rate}
+    \includegraphics[width=0.85\linewidth]{Graphics/doll_plot.png }     \label{fig:doll_plot}
+ \end{figure}
+
+This case has already been subject to study. In \cite{MONTORO2023102825}, a New Keynesian small open economy model with financial intermediaries as in \cite{doi:10.1086/714447} is used to generate deviations from UIP. The authors show that shocks can trigger inefficient FX paths and that policy responses can increase welfare.
+
+\section{Methodology proposal and implementation plan}
+
+The research question of this essay will be: has the FX policy of the Peruvian Central Bank been optimal? 
+
+This project will be done in four stages:
+
+\begin{enumerate}
+    \item \textbf{Deeper review of existing literature.} The current literature review has been based on recent results of the current state of the academic debate. In the first stage, I will enrich the literature with theoretical papers that support the modeling decisions and similar case studies.
+    
+    \item \textbf{Theoretical model.} In the essay, I will elaborate on a simplified version of \cite{itskhokimukhin2025} that captures the policy decision of a Central Bank. It will minimize a loss function between the output gap (or a measure that relies on sticky prices, such as actual inflation relative to the target) and a wedge that measures deviations from UIP. The restrictions will come from: (1) risk-sharing conditions [international access to foreign markets], (2) allocation of consumption between tradables and non-tradables [equilibrium in the goods market], and (3) equilibrium in the financial market. It is in this case where intervention in the FX market can absorb the shocks that create deviations from UIP due to capital flows in the financial market. I will prioritize having an analytically simple form of the model that will allow for a detailed analysis of how it works. The equations will be derived, but the main theorems explored in \cite{itskhokimukhin2025} will be used as given.
+    
+    \item \textbf{Stylized facts and calibration.} Using literature on estimation and calibration of Peruvian models (in particular \cite{MONTORO2023102825} already has some results that can be useful), some parameters will be recovered. The remaning parameters of the model will be either estimated through simple OLS regressions or calibrated such that they match how data behaves. Due to the limitations on time and scope of this essay the calibration will not be extensive. An opportunity to expand and improve the essay would be the use of stronger methods, like Bayesian econometrics, to estimate the parameters of the model.
+    
+    \item \textbf{Comparison of policy reactions to shocks and measurements of welfare.} Four episodes will be contrasted: the 2008 financial crisis, the taper tantrum, the 2020 pandemic, 2021 elections. I will simulate shocks of the same magnitude and estimate what the model predicts is the correct strategy and contrast it with the actual policy path. Then, a measure of welfare can be recovered from the loss function of the Central Bank.
+    
+\end{enumerate}
+
+This essay aims to shed light on the literature through the calibration of a novel model to estimate the optimal FX policy for a particular country. Differently from \cite{MONTORO2023102825}, where they discard optimal rules from a central bank optimization problem, I will contrast the results with the policy resulting from \cite{itskhokimukhin2025}.
+
+\bibliography{bibliography}
+\end{document}
