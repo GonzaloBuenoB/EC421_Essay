@@ -4,7 +4,7 @@ library(readxl)
 
 rm(list = ls())
 
-fx_data <- read_excel("ExchangeRateData.xlsx", sheet = "FX")
+fx_data <- read_excel("../data/ExchangeRateData.xlsx", sheet = "FX")
 
 plot_fx <- fx_data %>%
       pivot_longer(
@@ -25,7 +25,7 @@ plot_fx <- fx_data %>%
       theme(plot.title = element_text(hjust = 0.5))
 
 print(plot_fx)
-ggsave("fx_plot.png", plot = plot_fx, width = 6.25, height = 3, dpi = 300)
+ggsave("../paper/figures/fx_plot.png", plot = plot_fx, width = 6.25, height = 3, dpi = 300)
 
 fx_data_sd <- fx_data %>%
   mutate(across(
@@ -52,7 +52,7 @@ vol_ratios <- fx_data_sd %>%
 
 ## Coefficient of Dollarization
 
-dol_coef <- read_excel("ExchangeRateData.xlsx", sheet = 'CoefDoll')
+dol_coef <- read_excel("../data/ExchangeRateData.xlsx", sheet = 'CoefDoll')
 
 plot_dol_coef <- dol_coef %>%
                 ggplot(aes(x = Month, y = Coeficiente_Dolarización)) +
@@ -65,4 +65,4 @@ plot_dol_coef <- dol_coef %>%
                 theme_minimal()
                 
 print(plot_dol_coef)
-ggsave("doll_plot.png", plot = plot_dol_coef, width = 5.5, height = 2.5, dpi = 300)
+ggsave("../paper/figures/doll_plot.png", plot = plot_dol_coef, width = 5.5, height = 2.5, dpi = 300)
