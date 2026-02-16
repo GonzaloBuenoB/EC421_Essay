@@ -1,0 +1,9 @@
+{
+    "beta": 0.995,
+    "gamma": 0.15,
+    "omega_bar": 2.5,
+    "rho_q": 0.85,
+    "sigma_q": 0.03,
+    "rho_n": 0.70,
+    "sigma_n": 0.01
+}

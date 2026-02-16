@@ -1,0 +1,17 @@
+name: lab
+channels:
+  - conda-forge
+dependencies:
+  - python=3.14
+  - ipykernel
+  - pandas
+  - openpyxl
+  - matplotlib
+  - numpy
+  - scipy
+  - statsmodels
+  - seaborn
+  - jupyter
+  - jupyterlab
+  - scikit-learn
+prefix: /opt/homebrew/Caskroom/miniforge/base/envs/lab
