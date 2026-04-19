@@ -1,0 +1,61 @@
+Starting Dynare (version 6.5).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ...
+Found 1 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+1 block(s) found:
+  1 recursive block(s) and 0 simultaneous block(s).
+  the largest simultaneous block has 0 equation(s)
+                                 and 0 feedback variable(s).
+Computing dynamic model derivatives (order 1).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+1 block(s) found:
+  1 recursive block(s) and 0 simultaneous block(s).
+  the largest simultaneous block has 0 equation(s)
+                                 and 0 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+STEADY-STATE RESULTS:
+
+y 		 0
+
+MODEL SUMMARY
+
+  Number of variables:         1
+  Number of stochastic shocks: 1
+  Number of state variables:   1
+  Number of jumpers:           0
+  Number of static variables:  0
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables           e
+e            0.010000
+
+POLICY AND TRANSITION FUNCTIONS
+                                   y
+y(-1)                       0.900000
+e                           1.000000
+
+
+THEORETICAL MOMENTS
+VARIABLE         MEAN  STD. DEV.   VARIANCE
+y              0.0000     0.2294     0.0526
+
+
+
+MATRIX OF CORRELATIONS
+Variables         y
+y            1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order          1       2       3       4       5
+y         0.9000  0.8100  0.7290  0.6561  0.5905
+Total computing time : 0h00m01s

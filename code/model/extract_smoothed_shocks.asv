@@ -1,0 +1,166 @@
+%% extract_smoothed_shocks.m
+%  Run AFTER: dynare IM_peru_smoother
+%
+%  Extracts the Kalman-smoothed shocks and states,
+%  identifies the 2020-2021 episode, and saves results.
+
+close all;
+
+%% 1. Load the data to get the date vector
+data = load('peru_smoother_data.mat');
+T = length(data.q_tilde);
+fprintf('Sample length: %d quarters\n', T);
+
+%% 2. Construct date vector
+start_year = 2000;
+start_qtr  = 2;
+
+dates = datetime(start_year, start_qtr*3, 1) + calquarters(0:T-1);
+dates = dates(:);
+
+fprintf('First date: %s\n', datestr(dates(1)));
+fprintf('Last date: %s\n', datestr(dates(end)));
+
+%% 3. Extract smoothed shocks
+eps_q = oo_.SmoothedShocks.eps_q;
+eps_n = oo_.SmoothedShocks.eps_n;
+eps_f = oo_.SmoothedShocks.eps_f;
+
+% Extract smoothed states
+n_star_smooth = oo_.SmoothedVariables.n_star;
+z_smooth      = oo_.SmoothedVariables.z;
+de_smooth     = oo_.SmoothedVariables.de;
+e_smooth      = oo_.SmoothedVariables.e;
+f_star_smooth = oo_.SmoothedVariables.f_star;
+b_star_smooth = oo_.SmoothedVariables.b_star;
+
+%% 4. Find 2020-2021 quarters
+idx_episode = year(dates) >= 2020 & year(dates) <= 2021;
+n_episode   = sum(idx_episode);
+fprintf('\n=== 2020-2021 EPISODE: %d quarters found ===\n', n_episode);
+
+if n_episode > 0
+    fprintf('\n%-8s %10s %10s %10s %10s %10s %10s\n', ...
+        'Quarter', 'eps_q', 'eps_n', 'eps_f', 'n_star', 'f_star', 'b_star', );
+    fprintf('%s\n', repmat('-', 1, 78));
+    
+    idx = find(idx_episode);
+    for k = 1:length(idx)
+        t = idx(k);
+        qq = mod(start_qtr + t - 2, 4) + 1;
+        yr = start_year + floor((start_qtr + t - 2)/4);
+        fprintf('%dQ%d    %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f\n', ...
+            yr, qq, eps_q(t), eps_n(t), eps_f(t), ...
+            n_star_smooth(t), f_star_smooth(t), b_star_smooth(t));
+    end
+end
+
+%% 5. Exchange rate decomposition
+q_smooth = oo_.SmoothedVariables.q_tilde;
+idx_21 = find(year(dates) == 2021);
+if ~isempty(idx_21)
+    de_total = e_smooth(idx_21(end)) - e_smooth(idx_21(1)-1);
+    dq_total = q_smooth(idx_21(end)) - q_smooth(idx_21(1)-1);
+    dz_total = -(z_smooth(idx_21(end)) - z_smooth(idx_21(1)-1));
+    fprintf('\n=== 2021 EXCHANGE RATE DECOMPOSITION ===\n');
+    fprintf('Total Δe: %+.4f\n', de_total);
+    fprintf('  from q_tilde: %+.4f (%.0f%%)\n', dq_total, 100*dq_total/de_total);
+    fprintf('  from -z:      %+.4f (%.0f%%)\n', dz_total, 100*dz_total/de_total);
+end
+
+%% 6. Save the shock sequences for counterfactual simulations
+smoothed_shocks = struct();
+smoothed_shocks.eps_q = eps_q;
+smoothed_shocks.eps_n = eps_n;
+smoothed_shocks.eps_f = eps_f;
+smoothed_shocks.n_star = n_star_smooth;
+smoothed_shocks.dates_start = [start_year, start_qtr];
+smoothed_shocks.T = T;
+
+save('smoothed_shocks.mat', '-struct', 'smoothed_shocks');
+fprintf('\nSaved smoothed_shocks.mat\n');
+
+%% 7. Plot smoothed shocks and states
+figure('Position', [100 100 1200 600]);
+
+idx_2021 = year(dates) == 2021;
+
+subplot(2,3,1);
+plot(dates, eps_q, 'b-', 'LineWidth', 1);
+hold on;
+plot(dates(idx_2021), eps_q(idx_2021), 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+title('\epsilon_q (ToT shocks)');
+ylabel('Shock value');
+xline(datetime(2021,1,1), '--r');
+
+subplot(2,3,2);
+plot(dates, eps_n, 'b-', 'LineWidth', 1);
+hold on;
+plot(dates(idx_2021), eps_n(idx_2021), 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+title('\epsilon_n (Capital flow shocks)');
+xline(datetime(2021,1,1), '--r');
+
+subplot(2,3,3);
+plot(dates, eps_f, 'b-', 'LineWidth', 1);
+hold on;
+plot(dates(idx_2021), eps_f(idx_2021), 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+title('\epsilon_f (FXI policy errors)');
+xline(datetime(2021,1,1), '--r');
+
+subplot(2,3,4);
+plot(dates, n_star_smooth, 'b-', 'LineWidth', 1);
+hold on;
+plot(dates(idx_2021), n_star_smooth(idx_2021), 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+title('n^* (smoothed capital flow process)');
+ylabel('Level');
+xline(datetime(2021,1,1), '--r');
+
+subplot(2,3,5);
+plot(dates, de_smooth, 'b-', 'LineWidth', 1);
+hold on;
+plot(dates, data.de, 'k--', 'LineWidth', 0.8);
+plot(dates(idx_2021), de_smooth(idx_2021), 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+title('\Delta e (smoothed vs data)');
+legend('Smoothed', 'Data', 'Location', 'best');
+xline(datetime(2021,1,1), '--r');
+
+subplot(2,3,6);
+plot(dates, f_star_smooth, 'b-', 'LineWidth', 1);
+hold on;
+plot(dates, data.f_star, 'k--', 'LineWidth', 0.8);
+plot(dates(idx_2021), f_star_smooth(idx_2021), 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+title('f^* (smoothed vs data)');
+legend('Smoothed', 'Data', 'Location', 'best');
+xline(datetime(2021,1,1), '--r');
+
+sgtitle('Kalman Smoother: Recovered Shocks and States', 'FontSize', 14);
+saveas(gcf, 'smoothed_shocks_plot.png');
+fprintf('Saved smoothed_shocks_plot.png\n');
+
+%% 8. Plot f_star decomposition: f* = -phi*n* + eps_f
+figure('Position', [100 100 1000 500]);
+
+phi_val = M_.params(find(strcmp(M_.param_names, 'phi')));
+systematic = -phi_val * n_star_smooth;
+
+subplot(2,1,1);
+plot(dates, data.f_star, 'k-', 'LineWidth', 1.5); hold on;
+plot(dates, systematic, 'b--', 'LineWidth', 1.2);
+plot(dates, eps_f, 'r:', 'LineWidth', 1.2);
+xline(datetime(2021,1,1), '--', 'Color', [0.5 0.5 0.5]);
+legend('f^* (data)', '-\phi n^* (systematic)', '\epsilon_f (policy error)', 'Location', 'best');
+title('FXI Decomposition: f^* = -\phi n^* + \epsilon_f');
+ylabel('Fraction of GDP');
+
+subplot(2,1,2);
+bar(dates, [systematic, eps_f], 'stacked');
+hold on;
+plot(dates, data.f_star, 'k-', 'LineWidth', 1.5);
+xline(datetime(2021,1,1), '--', 'Color', [0.5 0.5 0.5]);
+legend('-\phi n^* (systematic)', '\epsilon_f (policy error)', 'f^* (data)', 'Location', 'best');
+title('Stacked Decomposition');
+ylabel('Fraction of GDP');
+
+sgtitle(sprintf('FXI Rule Decomposition (\\phi = %.3f)', phi_val), 'FontSize', 14);
+saveas(gcf, 'fstar_decomposition.png');
+fprintf('Saved fstar_decomposition.png\n');

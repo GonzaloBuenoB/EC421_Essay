@@ -1,0 +1,50 @@
+Starting Dynare (version 6.5).
+Calling Dynare with arguments: noclearall
+Starting preprocessing of the model file ...
+Found 7 equation(s).
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+6 block(s) found:
+  5 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Computing dynamic model derivatives (order 2).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+3 block(s) found:
+  2 recursive block(s) and 1 simultaneous block(s).
+  the largest simultaneous block has 2 equation(s)
+                                 and 2 feedback variable(s).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+STEADY-STATE RESULTS:
+
+z       		 0
+x       		 0
+e       		 0
+b_star  		 0
+q_tilde 		 0
+n_star  		 0
+f_star  		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+          0.7974           0.7974                0
+          0.8368           0.8368                0
+          0.9285           0.9285                0
+            1.26             1.26                0
+
+There are 1 eigenvalue(s) larger than 1 in modulus for 1 forward-looking variable(s)
+The rank condition is verified.
+
+[Warning: stoch_simul: using order = 1 because Hessian is equal to zero] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('stoch_simul', '/Applications/Dynare/6.5-arm64/matlab/stochastic_solver/stoch_simul.m', 59)" style="font-weight:bold">stoch_simul</a> (<a href="matlab: opentoline('/Applications/Dynare/6.5-arm64/matlab/stochastic_solver/stoch_simul.m',59,0)">line 59</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('IM_Peru_1b.driver', '/Users/gonzalobb/Library/CloudStorage/OneDrive-Personal/LSE/EC421 International Economics/EC421_Essay/code/model/+IM_Peru_1b/driver.m', 367)" style="font-weight:bold">IM_Peru_1b.driver</a> (<a href="matlab: opentoline('/Users/gonzalobb/Library/CloudStorage/OneDrive-Personal/LSE/EC421 International Economics/EC421_Essay/code/model/+IM_Peru_1b/driver.m',367,0)">line 367</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('dynare', '/Applications/Dynare/6.5-arm64/matlab/dynare.m', 306)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/Applications/Dynare/6.5-arm64/matlab/dynare.m',306,0)">line 306</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('solve_IM_fixed_point', '/Users/gonzalobb/Library/CloudStorage/OneDrive-Personal/LSE/EC421 International Economics/EC421_Essay/code/model/solve_IM_fixed_point.m', 36)" style="font-weight:bold">solve_IM_fixed_point</a> (<a href="matlab: opentoline('/Users/gonzalobb/Library/CloudStorage/OneDrive-Personal/LSE/EC421 International Economics/EC421_Essay/code/model/solve_IM_fixed_point.m',36,0)">line 36</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_irfs', '/Users/gonzalobb/Library/CloudStorage/OneDrive-Personal/LSE/EC421 International Economics/EC421_Essay/code/model/plot_irfs.m', 9)" style="font-weight:bold">plot_irfs</a> (<a href="matlab: opentoline('/Users/gonzalobb/Library/CloudStorage/OneDrive-Personal/LSE/EC421 International Economics/EC421_Essay/code/model/plot_irfs.m',9,0)">line 9</a>)] 
+Total computing time : 0h00m00s
+Note: warning(s) encountered in MATLAB/Octave code

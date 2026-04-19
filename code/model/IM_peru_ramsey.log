@@ -1,0 +1,98 @@
+Starting Dynare (version 6.5).
+Calling Dynare with arguments: noclearall
+Starting preprocessing of the model file ...
+Ramsey Problem: added 5 multipliers.
+Found 5 equation(s).
+Found 12 FOC equation(s) for Ramsey Problem.
+Evaluating expressions...
+Computing static model derivatives (order 1).
+Normalizing the static model...
+Finding the optimal block decomposition of the static model...
+12 block(s) found:
+  12 recursive block(s) and 0 simultaneous block(s).
+  the largest simultaneous block has 0 equation(s)
+                                 and 0 feedback variable(s).
+Computing dynamic model derivatives (order 1).
+Normalizing the dynamic model...
+Finding the optimal block decomposition of the dynamic model...
+12 block(s) found:
+  12 recursive block(s) and 0 simultaneous block(s).
+  the largest simultaneous block has 0 equation(s)
+                                 and 0 feedback variable(s).
+Computing planner objective derivatives (order 3).
+Preprocessing completed.
+Preprocessing time: 0h00m00s.
+
+STEADY-STATE RESULTS:
+
+z       		 0
+x       		 0
+e       		 0
+b_star  		 0
+q_tilde 		 0
+n_star  		 0
+f_star  		 0
+
+MODEL SUMMARY
+
+  Number of variables:         12
+  Number of stochastic shocks: 2
+  Number of state variables:   4
+  Number of jumpers:           4
+  Number of static variables:  4
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eps_q     eps_n
+eps_q        0.000900  0.000000
+eps_n        0.000000  0.000100
+
+POLICY AND TRANSITION FUNCTIONS
+                                   z               x               e          b_star         q_tilde          n_star          f_star
+b_star(-1)                  0.005000               0       -0.005000        1.000000               0               0        1.000000
+q_tilde(-1)                        0               0        0.850000               0        0.850000               0               0
+n_star(-1)                         0               0               0               0               0        0.700000       -0.700000
+MULT_3(-1)                  1.851852               0       -1.851852       -1.861158               0               0    -3724.176438
+eps_q                              0               0        1.000000               0        1.000000               0               0
+eps_n                              0               0               0               0               0        1.000000       -1.000000
+
+
+THEORETICAL MOMENTS
+VARIABLE         MEAN  STD. DEV.   VARIANCE
+z                 NaN        NaN        NaN
+x              0.0000     0.0000     0.0000
+e                 NaN        NaN        NaN
+b_star            NaN        NaN        NaN
+q_tilde        0.0000     0.0569     0.0032
+n_star         0.0000     0.0140     0.0002
+f_star            NaN        NaN        NaN
+
+
+
+VARIANCE DECOMPOSITION (in percent)
+            eps_q   eps_n
+x             NaN     NaN
+q_tilde    100.00    0.00
+n_star       0.00  100.00
+
+
+
+MATRIX OF CORRELATIONS
+Variables    q_tilde   n_star
+q_tilde       1.0000   0.0000
+n_star        0.0000   1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order           1       2       3       4       5
+q_tilde    0.8500  0.7225  0.6141  0.5220  0.4437
+n_star     0.7000  0.4900  0.3430  0.2401  0.1681
+
+Approximated value of unconditional welfare:  -0.00000000
+
+Approximated value of conditional welfare:
+    - with initial Lagrange multipliers set to 0: 0.00000000
+    - with initial Lagrange multipliers set to steady state: 0.00000000
+
+Total computing time : 0h00m00s
